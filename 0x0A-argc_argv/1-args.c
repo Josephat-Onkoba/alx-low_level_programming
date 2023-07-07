@@ -1,8 +1,15 @@
 #include "main.h"
 
+/**
+ * main - Entry point of the program
+ * @argc: Number of command-line arguments
+ * @argv: Array of command-line arguments
+ *
+ * Return: 0 on success
+ */
 int main(int argc, char *argv[])
 {
-    (void)argv;  // Unused parameter, casting to void to avoid warning
-    printf("%d\n", argc - 1);  // Subtract 1 to exclude the program name argument
-    return 0;
+	(void)argv;
+	printf("%d\n", argc - 1);
+	return (0);
 }
