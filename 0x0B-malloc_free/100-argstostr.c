@@ -1,39 +1,55 @@
 #include "main.h"
 #include <stdlib.h>
+
 /**
- * argstostr - main entry
- * @ac: int input
- * @av: double pointer array
- * Return: 0
+ * argstostr - Concatenates all arguments of the program
+ * @ac: The number of arguments
+ * @av: An array of strings containing the arguments
+ *
+ * Return: Pointer to a new string containing the concatenated arguments,
+ *         or NULL if ac is 0, av is NULL, or if memory allocation fails.
  */
 char *argstostr(int ac, char **av)
 {
-	int i, n, r = 0, l = 0;
-	char *str;
+    if (ac == 0 || av == NULL)
+        return NULL;
 
-	if (ac == 0 || av == NULL)
-		return (NULL);
+    int total_length = 0;
+    int i, j, k;
+    char *concatenated;
 
-	for (i = 0; i < ac; i++)
-	{
-		for (n = 0; av[i][n]; n++)
-			l++;
-	}
-	l += ac;
+    for (i = 0; i < ac; i++)
+    {
+        j = 0;
+        while (av[i][j] != '\0')
+        {
+            total_length++;
+            j++;
+        }
+        total_length++; /* Account for the newline character */
+    }
 
-	str = malloc(sizeof(char) * l + 1);
-	if (str == NULL)
-		return (NULL);
-	for (i = 0; i < ac; i++)
-	{
-	for (n = 0; av[i][n]; n++)
-	{
-		str[r] = av[i][n];
-		r++;
-	}
-	if (str[r] == '\0')
-	{
-		str[r++] = '\n';
-	}
-	}
-	return (str);
+    concatenated = malloc(sizeof(char) * (total_length + 1));
+
+    if (concatenated == NULL)
+        return NULL;
+
+    k = 0;
+
+    for (i = 0; i < ac; i++)
+    {
+        j = 0;
+        while (av[i][j] != '\0')
+        {
+            concatenated[k] = av[i][j];
+            j++;
+            k++;
+        }
+        concatenated[k] = '\n';
+        k++;
+    }
+
+    concatenated[k] = '\0';
+
+    return concatenated;
+}
