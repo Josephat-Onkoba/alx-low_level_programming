@@ -1,51 +1,40 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "lists.h"
 
 /**
- * free_listint_safe - Frees a listint_t linked list.
- * @h: Pointer to the head of the list.
- * Return: The size of the list that was freed.
+ * free_listint_safe - frees a linked list
+ * @h: pointer to the first node in the linked list
+ *
+ * Return: number of elements in the freed list
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *slow, *fast;
-	size_t size = 0;
+	size_t len = 0;
+	int diff;
+	listint_t *temp;
 
-	slow = *h;
-	fast = *h;
+	if (!h || !*h)
+		return (0);
 
-	while (fast != NULL && fast->next != NULL)
+	while (*h)
 	{
-		slow = slow->next;
-		fast = fast->next->next;
-
-		if (slow == fast)
+		diff = *h - (*h)->next;
+		if (diff > 0)
 		{
-			/* Cycle detected, free the list and exit */
-			size = 0;
-			while (*h != NULL)
-			{
-				slow = *h;
-				*h = (*h)->next;
-				free(slow);
-				size++;
-			}
+			temp = (*h)->next;
+			free(*h);
+			*h = temp;
+			len++;
+		}
+		else
+		{
+			free(*h);
 			*h = NULL;
-			exit(98);
+			len++;
+			break;
 		}
 	}
 
-	/* No cycle detected, free the list normally */
-	size = 0;
-	while (*h != NULL)
-	{
-		slow = *h;
-		*h = (*h)->next;
-		free(slow);
-		size++;
-	}
 	*h = NULL;
 
-	return (size);
+	return (len);
 }
