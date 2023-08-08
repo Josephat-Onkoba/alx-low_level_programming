@@ -17,6 +17,20 @@ void print_type(unsigned int e_type, unsigned char *e_ident);
 void print_entry(unsigned long int e_entry, unsigned char *e_ident);
 void close_elf(int elf);
 
+
+/**
+ * main - Displays the information contained in the
+ * ELF header at the start of an ELF file.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
+ *
+ * Return: 0 on success.
+ *
+ * Description: If the file is not an ELF File or
+ * the function fails - exit code 98.
+ */
+int main(int __attribute__((__unused__)) argc, char *argv[])
+{
 /**
  * check_elf - Checks if a file is an ELF file.
  * @e_ident: A pointer to an array containing the ELF magic numbers.
@@ -114,7 +128,7 @@ void print_data(unsigned char *e_ident)
 /**
  *  * print_version - Prints the version of an ELF header.
  *   * @e_ident: A pointer to an array containing the ELF version.
- *    */
+ */
 void print_version(unsigned char *e_ident)
 {
 	 printf(" Version: %d",
@@ -259,19 +273,6 @@ void close_elf(int elf)
 	}
 }
 
-/**
- * main - Displays the information contained in the
- * ELF header at the start of an ELF file.
- * @argc: The number of arguments supplied to the program.
- * @argv: An array of pointers to the arguments.
- *
- * Return: 0 on success.
- *
- * Description: If the file is not an ELF File or
- * the function fails - exit code 98.
- */
-int main(int __attribute__((__unused__)) argc, char *argv[])
-{
 	Elf64_Ehdr *header;
 	int o, r;
 
